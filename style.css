@@ -27,7 +27,16 @@ a:hover {
     text-align: left;
 }
 
+#monBouton {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+/* Mode sombre */
 .mode-sombre {
     background-color: #1a1a1a;
     color: #fff;
@@ -35,4 +44,8 @@ a:hover {
 
 .mode-sombre a {
     color: #ff7675; 
+}
+.mode-sombre #monBouton {
+    background-color: #fff;
+    color: #333;
 }
