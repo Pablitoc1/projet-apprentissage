@@ -1,4 +1,4 @@
-let bouton = document.getElementById("monBouton");
+let bouton = document.getElementById("mode-sombre");
 
 bouton.addEventListener("click", function() {
     document.body.classList.toggle("mode-sombre");

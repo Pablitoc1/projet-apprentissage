@@ -19,7 +19,7 @@ body {
 .mode-sombre a {
     color: #ff7675; 
 }
-.mode-sombre #monBouton {
+.mode-sombre #mode-sombre {
     background-color: #fff;
     color: #333;
 }
@@ -59,7 +59,7 @@ body {
 }
 
 /* Bouton */
-#monBouton {
+#mode-sombre {
     position: absolute; /* Sort le bouton du flux normal */
     right: 20px; /* Le place à 20px du bord droit de la barre */
     background-color: #333;
@@ -71,7 +71,7 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-#monBouton:hover {
+#mode-sombre:hover {
     background-color: #555;
     transform: scale(1.05);
 }
@@ -188,6 +188,47 @@ a:hover {
     margin-top: 0;
     color: #ff7675;
 }
+
+/* Form */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+form input, form textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form button {
+    background-color: #ff7675;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #d25555;
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+.nom-form, .email-form, .message-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
 
 /* Quand l'écran fait 768px de large ou moins (tablettes et mobiles) */
 @media (max-width: 768px) {
