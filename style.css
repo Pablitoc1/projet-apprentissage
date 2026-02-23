@@ -303,20 +303,77 @@ form button:hover {
     transition: all 0.3s ease-in-out;
 }
 
-/* Quand l'écran fait 768px de large ou moins (tablettes et mobiles) */
+/* Météo */
+#meteo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 20px;
+}
+#entree-ville {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+#meteo-bouton {
+    background-color: #ff7675;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#meteo-bouton:hover {
+    background-color: #d25555;
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Résultat de la météo */
+#resultat-meteo {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 20px;
+}   
+#temperature {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+#ville-meteo {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+}
+#icon-meteo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Mobile */
 @media (max-width: 768px) {
     .presentation {
-        flex-direction: column; /* On empile les éléments verticalement */
-        text-align: center;      /* On recentre tout pour le mobile */
+        flex-direction: column; 
+        text-align: center;      
     }
-
     .texte {
-        text-align: center;      /* On annule le text-align: left ici */
-        margin-bottom: 20px;     /* On ajoute un peu d'espace sous le texte */
+        text-align: center;      
+        margin-bottom: 20px;     
     }
-
     img {
-        width: 80%;              /* L'image prend plus de place sur petit écran */
+        width: 80%;              
         max-width: 300px;
     }
 }

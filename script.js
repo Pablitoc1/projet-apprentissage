@@ -4,19 +4,16 @@ bouton.addEventListener("click", function() {
     document.body.classList.toggle("mode-sombre");
 });
 
-// On sélectionne toutes les cartes
+/* Galerie */
 let toutesLesCartes = document.querySelectorAll('.carte');
-
-// Pour chaque carte, on écoute le clic
 toutesLesCartes.forEach(carte => {
     carte.addEventListener('click', function() {
-        // On cherche le paragraphe 'details' à l'intérieur de CETTE carte
         let detail = this.querySelector('.details');
-        // On alterne l'affichage
         detail.classList.toggle('affiche-details');
     });
 });
 
+/* Modale */
 const cartes = document.querySelectorAll(".carte-projet");
 const modale = document.getElementById("ma-modale");
 const imageAgrandie = document.getElementById("image-agrandie");
@@ -24,7 +21,6 @@ const titreProjetModale = document.getElementById("titre-projet-modale");
 const texteProjetModale = document.getElementById("texte-projet-modale");
 
 cartes.forEach(carte => {
-    // C'est ici qu'on va ajouter l'événement de clic
     carte.addEventListener('click', function() {
         modale.style.display = 'flex';
         imageAgrandie.src = carte.querySelector('img').src;
@@ -50,6 +46,7 @@ liensNav.forEach(lien => {
     }
 });
 
+/* Citation */
 const nouvelleCitationBouton = document.getElementById("nouvelle-citation-bouton");
 const textCitation = document.getElementById("text-citation");
 const auteurCitation = document.getElementById("auteur-citation");
@@ -62,5 +59,43 @@ function obtenirCitation() {
           auteurCitation.textContent = donnees.author;
       });
 }
-nouvelleCitationBouton.addEventListener("click", obtenirCitation);
+if(nouvelleCitationBouton) {
+    nouvelleCitationBouton.addEventListener("click", obtenirCitation);
+}
 
+
+/* Météo */
+const entreeVille = document.getElementById("entree-ville");
+const meteoBouton = document.getElementById("meteo-bouton");
+const resultatMeteo = document.getElementById("resultat-meteo");
+const temperature = document.getElementById("temperature");
+const villeMeteo = document.getElementById("ville-meteo");
+const iconMeteo = document.getElementById("icon-meteo");
+const API_KEY_METEO = "ddb399aea97388640fc275e7b938f2b5";
+
+function obtenirMeteo(ville) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ville}&appid=${API_KEY_METEO}&units=metric`)
+      .then(reponse => reponse.json())
+      .then(donnees => {
+        if(donnees.cod === 200) {
+            temperature.textContent = donnees.main.temp+ " °C";
+            villeMeteo.textContent = donnees.name;
+            iconMeteo.src = `https://openweathermap.org/img/wn/${donnees.weather[0].icon}.png`;
+        } else {
+            alert("Erreur: " + donnees.message);
+        }
+      });
+}
+
+if(entreeVille) {
+entreeVille.addEventListener("keypress", function(event) {
+    if(event.key === "Enter") {
+        resultatMeteo.style.display = 'flex';
+        obtenirMeteo(entreeVille.value);
+    }
+    });
+    meteoBouton.addEventListener("click", function() {
+        resultatMeteo.style.display = 'flex';
+        obtenirMeteo(entreeVille.value);
+    });
+}

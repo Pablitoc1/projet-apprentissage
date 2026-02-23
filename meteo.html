@@ -16,21 +16,15 @@
             </ul>
             <button id="mode-sombre">Mode sombre</button>
         </nav>
-        <form>
-            <div class="nom-form">
-            <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" required>
+        <div id="meteo-container">
+            <input type="text" id="entree-ville" placeholder="Entrez le nom d'une ville">
+            <button id="meteo-bouton">Charger la météo</button>
+            <div id="resultat-meteo">
+                <p id="temperature">Température (°C)</p>
+                <p id="ville-meteo">Ville</p>
+                <img id="icon-meteo" src="https://picsum.photos/400/300?random=5" alt="Icone météo">
             </div>
-            <div class="email-form">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-            </div>
-            <div class="message-form">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit">Envoyer</button>
-        </form>
+        </div>
         <script src="script.js"></script>
     </body>
 </html>
