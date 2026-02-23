@@ -229,7 +229,45 @@ form button:hover {
     margin-bottom: 15px;
 }
 
+/* Modale */
+.modale {
+    display: none;            /* Cachée par défaut 👻 */
+    position: fixed;         /* Reste fixe à l'écran 📌 */
+    z-index: 1000;           /* Passe par-dessus tout le reste 🔝 */
+    left: 0;
+    top: 0;
+    width: 100%;             /* Prend toute la largeur ↔️ */
+    height: 100%;            /* Prend toute la hauteur ↕️ */
+    background-color: rgba(0, 0, 0, 0.8); /* Fond noir semi-transparent 🌑 */
+    align-items: center;
+    justify-content: center;
+}
+.contenu-modale {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 80%;
+    max-height: 80%;
+    text-align: center;       /* Centre le texte et l'image à l'intérieur 🎯 */
+}
 
+.contenu-modale img {
+    max-width: 100%;          /* L'image ne dépasse jamais de la boîte 🖼️ */
+    height: auto;
+    border-radius: 5px;
+}
+
+.croix-fermeture {
+    position: absolute;
+    color: white;
+    top: 10px;
+    right: 10px;
+    font-size: 3em;
+    cursor: pointer;
+}
+.croix-fermeture:hover {
+    color: #d25555;
+}
 /* Quand l'écran fait 768px de large ou moins (tablettes et mobiles) */
 @media (max-width: 768px) {
     .presentation {

@@ -16,3 +16,23 @@ toutesLesCartes.forEach(carte => {
         detail.classList.toggle('affiche-details');
     });
 });
+
+const cartes = document.querySelectorAll(".carte-projet");
+const modale = document.getElementById("ma-modale");
+const imageAgrandie = document.getElementById("image-agrandie");
+const titreProjetModale = document.getElementById("titre-projet-modale");
+const texteProjetModale = document.getElementById("texte-projet-modale");
+cartes.forEach(carte => {
+    // C'est ici qu'on va ajouter l'événement de clic
+    carte.addEventListener('click', function() {
+        modale.style.display = 'flex';
+        imageAgrandie.src = carte.querySelector('img').src;
+        titreProjetModale.textContent = carte.querySelector('h3').textContent;
+        texteProjetModale.textContent = carte.querySelector('p').textContent;
+    });
+});
+
+const croixFermeture = document.querySelector(".croix-fermeture");
+croixFermeture.addEventListener("click", function() {
+    modale.style.display = 'none';
+});
