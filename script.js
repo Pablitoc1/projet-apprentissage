@@ -49,3 +49,18 @@ liensNav.forEach(lien => {
         lien.classList.add('actif');
     }
 });
+
+const nouvelleCitationBouton = document.getElementById("nouvelle-citation-bouton");
+const textCitation = document.getElementById("text-citation");
+const auteurCitation = document.getElementById("auteur-citation");
+
+function obtenirCitation() {
+    fetch("https://dummyjson.com/quotes/random")
+      .then(reponse => reponse.json()) // On transforme le "colis" en format lisible (JSON)
+      .then(donnees => {
+          textCitation.textContent = donnees.quote;
+          auteurCitation.textContent = donnees.author;
+      });
+}
+nouvelleCitationBouton.addEventListener("click", obtenirCitation);
+

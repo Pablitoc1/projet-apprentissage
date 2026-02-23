@@ -268,6 +268,41 @@ form button:hover {
 .croix-fermeture:hover {
     color: #d25555;
 }
+
+/* Citation */
+#citation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 20px;
+}
+
+#text-citation {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+#auteur-citation {
+    font-size: 1.5em;
+    font-weight: italic;
+}
+#nouvelle-citation-bouton {
+    background-color: #ff7675;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#nouvelle-citation-bouton:hover {
+    background-color: #d25555;
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
 /* Quand l'écran fait 768px de large ou moins (tablettes et mobiles) */
 @media (max-width: 768px) {
     .presentation {
