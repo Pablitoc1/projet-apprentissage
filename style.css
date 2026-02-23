@@ -1,7 +1,79 @@
 body {
+    /* --- STRUCTURE (Ne change jamais) --- */
+    margin: 0;                /* On supprime la marge par défaut pour éviter le décalage */
+    font-family: sans-serif;  /* La police est fixée ici une fois pour toutes */
+    min-height: 100vh;        /* La hauteur est toujours au moins celle de l'écran */
+    transition: background 0.3s ease, color 0.3s ease; /* Pour que le changement soit fluide */
+
+    /* --- COULEURS PAR DÉFAUT (Mode Clair) --- */
     background-color: #f4f4f9;
-    font-family: sans-serif;
     color: #333;
+}
+
+/* Mode sombre */
+.mode-sombre {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f172a 100%);
+    color: #f8fafc;
+}
+
+.mode-sombre a {
+    color: #ff7675; 
+}
+.mode-sombre #monBouton {
+    background-color: #fff;
+    color: #333;
+}
+
+
+/* Barre de navigation */
+.barre-navigation {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 30px;
+    position: relative; /* Devient le cadre de référence pour le bouton */
+    display: flex;
+    justify-content: center; /* Garde le menu <ul> bien au centre */
+    align-items: center;     /* Aligne le menu et le bouton verticalement */
+}
+
+.barre-navigation ul {
+    list-style: none; /* Enlève les puces */
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+}
+
+.barre-navigation a {
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+.barre-navigation a.actif {
+    color: #ff7675; /* Notre belle couleur d'accentuation */
+    border-bottom: 2px solid #ff7675; /* Un petit soulignement élégant */
+    padding-bottom: 5px; /* Pour aérer un peu le soulignement */
+}
+
+/* Bouton */
+#monBouton {
+    position: absolute; /* Sort le bouton du flux normal */
+    right: 20px; /* Le place à 20px du bord droit de la barre */
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#monBouton:hover {
+    background-color: #555;
+    transform: scale(1.05);
 }
 
 
@@ -40,22 +112,6 @@ a:hover {
     text-decoration: none;
 }
 
-/* Bouton */
-#monBouton {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-#monBouton:hover {
-    background-color: #555;
-    transform: scale(1.05);
-}
-
 /* Galerie */
 .galerie {
     display: flex;
@@ -92,48 +148,45 @@ a:hover {
     display: block !important;
 }
 
-/* Barre de navigation */
-.barre-navigation {
+/* --- LA GRILLE --- */
+.grille-projets {
+    display: grid;
+    /* La formule magique : crée des colonnes de 300px minimum, 
+       et les étire pour remplir l'espace si besoin */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; /* L'espace entre les cartes */
     padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto; /* Centre la grille sur la page */
+}
+
+/* --- LES CARTES --- */
+.carte-projet {
     background: rgba(255, 255, 255, 0.05);
-    margin-bottom: 30px;
+    border-radius: 15px;
+    overflow: hidden; /* Empêche l'image de déborder des coins arrondis */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.barre-navigation ul {
-    list-style: none; /* Enlève les puces */
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 0;
+.carte-projet:hover {
+    transform: translateY(-10px); /* Fait "sauter" la carte vers le haut au survol */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
 
-.barre-navigation a {
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    letter-spacing: 1px;
+.carte-projet img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Coupe l'image proprement sans l'écraser */
+    display: block;
 }
 
-.barre-navigation a.actif {
-    color: #ff7675; /* Notre belle couleur d'accentuation */
-    border-bottom: 2px solid #ff7675; /* Un petit soulignement élégant */
-    padding-bottom: 5px; /* Pour aérer un peu le soulignement */
+.contenu-projet {
+    padding: 20px;
 }
 
-/* Mode sombre */
-.mode-sombre {
-    background: linear-gradient(135deg, #1a1a1a 0%, #0f172a 100%);
-    color: #f8fafc;
-    min-height: 100vh; /* Pour que le fond couvre bien toute la hauteur */
-}
-
-.mode-sombre a {
-    color: #ff7675; 
-}
-.mode-sombre #monBouton {
-    background-color: #fff;
-    color: #333;
+.contenu-projet h3 {
+    margin-top: 0;
+    color: #ff7675;
 }
 
 /* Quand l'écran fait 768px de large ou moins (tablettes et mobiles) */
