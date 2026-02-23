@@ -362,6 +362,63 @@ form button:hover {
     border-radius: 5px;
 }
 
+/* Pokédex */
+#pokedex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 20px;
+}
+#recherche-pokemon {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+#bouton-pokedex {
+    background-color: #ff7675;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#bouton-pokedex:hover {
+    background-color: #d25555;
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+#carte-pokemon {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 20px;
+}
+#types-pokemon {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#types-pokemon span {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #ff7675;
+    font-size: 0.8em;
+}
+#types-pokemon span.type {
+    color: white;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
     .presentation {

@@ -99,3 +99,47 @@ entreeVille.addEventListener("keypress", function(event) {
         obtenirMeteo(entreeVille.value);
     });
 }
+
+/* Pokédex */
+const recherchePokemon = document.getElementById("recherche-pokemon");
+const boutonPokedex = document.getElementById("bouton-pokedex");
+const cartePokemon = document.getElementById("carte-pokemon");
+const nomPokemon = document.getElementById("nom-pokemon");
+const imagePokemon = document.getElementById("image-pokemon");
+const typesPokemon = document.getElementById("types-pokemon");
+
+
+function obtenirPokemon(nom) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${nom}`)
+      .then(reponse => reponse.json())
+      .then(donnees => {
+        nomPokemon.textContent = donnees.name;
+        imagePokemon.src = donnees.sprites.front_default;
+        typesPokemon.innerHTML ="";
+        donnees.types.forEach(type => {
+            const typeElement = document.createElement("span");
+            typeElement.classList.add("type");
+            typeElement.textContent = type.type.name;
+            typesPokemon.appendChild(typeElement);
+        });
+      })
+      .catch(erreur => {
+        alert("Erreur: " + erreur);
+      });
+}
+
+function lancerRecherche() {
+    const nomsaisi = recherchePokemon.value.toLowerCase();
+    cartePokemon.style.display = 'flex';
+    obtenirPokemon(nomsaisi);
+}
+if(recherchePokemon) {
+    recherchePokemon.addEventListener("keypress", function(event) {
+        if(event.key === "Enter") {
+            lancerRecherche();
+        }
+    });
+    boutonPokedex.addEventListener("click", function() {
+        lancerRecherche();
+    });
+}
