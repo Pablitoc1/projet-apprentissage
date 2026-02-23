@@ -400,23 +400,51 @@ form button:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
     min-height: 300px;
     padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+#nom-pokemon {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #211c1c;
+}
+#image-pokemon {
+    background-color: #d4caca;
+    padding: 10px;
 }
 #types-pokemon {
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #types-pokemon span {
     padding: 5px 10px;
     border-radius: 5px;
-    background-color: #ff7675;
-    font-size: 0.8em;
+    background-color: #211f1f;
 }
 #types-pokemon span.type {
     color: white;
+}
+
+#stats-pokemon div {
+    display: flex;
+    align-items: center;
+}
+
+#stats-pokemon span {
+    width: 120px;
+    font-weight: bold;
+}
+
+#stats-pokemon progress {
+    flex-grow: 1; 
 }
 
 /* Mobile */
