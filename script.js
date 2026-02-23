@@ -22,6 +22,7 @@ const modale = document.getElementById("ma-modale");
 const imageAgrandie = document.getElementById("image-agrandie");
 const titreProjetModale = document.getElementById("titre-projet-modale");
 const texteProjetModale = document.getElementById("texte-projet-modale");
+
 cartes.forEach(carte => {
     // C'est ici qu'on va ajouter l'événement de clic
     carte.addEventListener('click', function() {
@@ -33,6 +34,18 @@ cartes.forEach(carte => {
 });
 
 const croixFermeture = document.querySelector(".croix-fermeture");
-croixFermeture.addEventListener("click", function() {
-    modale.style.display = 'none';
+if(croixFermeture) {
+    croixFermeture.addEventListener("click", function() {
+        modale.style.display = 'none';
+    });
+}
+
+const pageActuelle = window.location.pathname;
+const liensNav = document.querySelectorAll('nav a');
+
+liensNav.forEach(lien => {
+    const destination = lien.getAttribute('href');
+    if (pageActuelle.includes(destination)) {
+        lien.classList.add('actif');
+    }
 });
