@@ -18,10 +18,18 @@
             </ul>
             <button id="mode-sombre">Mode sombre</button>
         </nav>
-        <div id="citation-container">
-            <p id="text-citation">"La citation apparaîtra ici..."</p>
-            <p id="auteur-citation"></p>
-            <button id="nouvelle-citation-bouton">Nouvelle Citation 🔄</button>
+        <div id="films-container"> 
+            <input type="text" id="recherche-films" placeholder="Rechercher un film">
+            <button id="bouton-films">Rechercher</button>
+            <div id="liste-films" class="grille-films">
+            </div>
+            <div id="modale-film" class="modale">
+                <div class="modale-contenu">
+                    <span class="croix-fermeture-modale">&times;</span>
+                    <div id="details-corps">
+                        </div>
+                </div>
+            </div>
         </div>
         <script src="script.js"></script>
     </body>

@@ -34,6 +34,16 @@ if(croixFermeture) {
     croixFermeture.addEventListener("click", function() {
         modale.style.display = 'none';
     });
+    window.addEventListener("click", (event) => {
+        if (event.target === modale) { 
+            modale.style.display = "none";
+        }
+    });
+    window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            modale.style.display = "none";
+        }
+    });
 }
 
 const pageActuelle = window.location.pathname;
@@ -126,8 +136,11 @@ function obtenirPokemon(nom) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${nom}`)
       .then(reponse => reponse.json())
       .then(donnees => {
+        /* Nom */
         nomPokemon.textContent = donnees.name;
+        /* Image */
         imagePokemon.src = donnees.sprites.front_default;
+        /* Types */
         typesPokemon.innerHTML ="";
         donnees.types.forEach(type => {
             const typeElement = document.createElement("span");
@@ -141,6 +154,7 @@ function obtenirPokemon(nom) {
             }
 
         });
+        /* Stats */
         statsPokemon.innerHTML ="";
         donnees.stats.forEach(stat => {
             const ligneStats = document.createElement("div");
@@ -160,7 +174,7 @@ function obtenirPokemon(nom) {
       });
 }
 
-function lancerRecherche() {
+function lancerRecherchePokemon() {
     const nomsaisi = recherchePokemon.value.toLowerCase();
     cartePokemon.style.display = 'flex';
     obtenirPokemon(nomsaisi);
@@ -168,10 +182,113 @@ function lancerRecherche() {
 if(recherchePokemon) {
     recherchePokemon.addEventListener("keypress", function(event) {
         if(event.key === "Enter") {
-            lancerRecherche();
+            lancerRecherchePokemon();
         }
     });
     boutonPokedex.addEventListener("click", function() {
-        lancerRecherche();
+        lancerRecherchePokemon();
+    });
+}
+
+/* Films */
+const rechercheFilms = document.getElementById("recherche-films");
+const boutonFilms = document.getElementById("bouton-films");
+const listeFilms = document.getElementById("liste-films");
+const modaleFilm = document.getElementById("modale-film");
+const API_KEY_FILMS = "425a00cc";
+
+function obtenirFilms(titre) {
+    listeFilms.innerHTML = "";
+    fetch(`http://www.omdbapi.com/?apikey=${API_KEY_FILMS}&s=${titre}`)
+      .then(reponse => reponse.json())
+      .then(donnees => {
+        if(donnees.Search) {
+            donnees.Search.forEach(film => {
+            const carteFilm = document.createElement("div");
+            const imageAffiche = film.Poster !== "N/A" ? film.Poster : "https://picsum.photos/400/300?random=7";
+            carteFilm.classList.add("carte-film");
+            carteFilm.innerHTML = `
+                <img src="${imageAffiche}" alt="${film.Title}">
+                <h3>${film.Title}</h3>
+            `;
+            listeFilms.appendChild(carteFilm);
+            /* Obtenir les détails du film */
+            carteFilm.addEventListener("click", function() {
+                obtenirDetailsFilm(film.imdbID);
+            });
+            }); 
+        } else {
+            alert("Aucun film trouvé");
+        }
+
+      });
+}
+
+function lancerRechercheFilms() {
+    const titresaisi = rechercheFilms.value;
+    listeFilms.style.display = 'flex';
+    obtenirFilms(titresaisi);
+}
+if(rechercheFilms) {
+    rechercheFilms.addEventListener("keypress", function(event) {
+        if(event.key === "Enter") {
+            lancerRechercheFilms();
+        }
+    });
+    boutonFilms.addEventListener("click", function() {
+        lancerRechercheFilms();
+    });
+}
+
+function obtenirDetailsFilm(imdbID) {
+    fetch(`http://www.omdbapi.com/?apikey=${API_KEY_FILMS}&i=${imdbID}&plot=full`)
+      .then(reponse => reponse.json())
+      .then(filmDetails => {
+        const corps = document.getElementById("details-corps");
+        const etoiles = genererEtoiles(parseFloat(filmDetails.imdbRating));
+        corps.innerHTML = `
+        <div id="details-texte">
+            <h2>${filmDetails.Title} (${filmDetails.Year})</h2>
+            <div class="rating">${etoiles} <span>${filmDetails.imdbRating}/10</span></div>
+            <p><strong>Réalisateur :</strong> ${filmDetails.Director}</p>
+            <p><strong>Acteurs :</strong> ${filmDetails.Actors}</p>
+            <p><strong>Genre :</strong> ${filmDetails.Genre}</p>
+            <p><strong>Résumé :</strong> ${filmDetails.Plot}</p>
+        </div>
+        <img src="${filmDetails.Poster !== 'N/A' ? filmDetails.Poster : 'https://picsum.photos/400/300?random=7'}" alt="Affiche">
+        `;
+            modaleFilm.style.display = "block";
+        });
+}
+
+function genererEtoiles(note) {
+    const noteSurCinq = Math.round(note / 2); 
+    let etoiles = "";
+    
+    for (let i = 1; i <= 5; i++) {
+        if (i <= noteSurCinq) {
+            etoiles += "⭐"; 
+        } else {
+            etoiles += "☆";
+        }
+    }
+    return etoiles;
+}
+
+
+const croixFermetureModale = document.querySelector(".croix-fermeture-modale");
+if(croixFermetureModale) {
+    croixFermetureModale.addEventListener("click", function() {
+        modaleFilm.style.display = 'none';
+    });
+    window.addEventListener("click", (event) => {
+        if (event.target === modaleFilm) { 
+            modaleFilm.style.display = "none";
+        }
+    });
+    window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            modaleFilm.style.display = "none";
+        }
     });
 }
