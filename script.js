@@ -245,11 +245,19 @@ function obtenirDetailsFilm(imdbID) {
       .then(reponse => reponse.json())
       .then(filmDetails => {
         const corps = document.getElementById("details-corps");
-        const etoiles = genererEtoiles(parseFloat(filmDetails.imdbRating));
+        const noteNum = parseFloat(filmDetails.imdbRating);
+        const pourcentageEtoiles = (noteNum / 10) * 100;
         corps.innerHTML = `
         <div id="details-texte">
             <h2>${filmDetails.Title} (${filmDetails.Year})</h2>
-            <div class="rating">${etoiles} <span>${filmDetails.imdbRating}/10</span></div>
+
+            <div class="rating-container">
+            <div class="stars-outer">
+                <div class="stars-inner" style="width: ${pourcentageEtoiles}%"></div>
+            </div>
+            <span>${filmDetails.imdbRating}/10</span>
+        </div>
+
             <p><strong>Réalisateur :</strong> ${filmDetails.Director}</p>
             <p><strong>Acteurs :</strong> ${filmDetails.Actors}</p>
             <p><strong>Genre :</strong> ${filmDetails.Genre}</p>

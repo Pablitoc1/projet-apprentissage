@@ -573,11 +573,33 @@ form button:hover {
     margin-right: 20px;
 }
 
-.rating {
-    color: #f1c40f; /* Couleur jaune pour les étoiles */
-    font-size: 1.2em;
-    margin: 10px 0;
+.stars-outer {
+    position: relative;
+    display: inline-block;
+    font-size: 25px; /* Taille des étoiles */
+    color: #444;    /* Couleur des étoiles vides */
 }
+
+/* On écrit les 5 étoiles vides une seule fois */
+.stars-outer::before {
+    content: "★★★★★";
+}
+
+.stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden; /* Cache ce qui dépasse de la largeur définie */
+    width: 0;         /* Sera modifié par le JavaScript */
+    color: #f1c40f;   /* Couleur des étoiles pleines (dorées) */
+}
+
+/* On réécrit les 5 étoiles pleines par-dessus */
+.stars-inner::before {
+    content: "★★★★★";
+}
+
 .croix-fermeture-modale {
     position: absolute;
     color: white;
