@@ -4,6 +4,10 @@
         <link rel="stylesheet" href="style.css">
         <title>Mon premier site web</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        }
+        </script>
     </head>
     <body>
         <nav class="barre-navigation">
@@ -16,7 +20,10 @@
                 <li><a href="pokedex.html">Pokédex</a></li>
                 <li><a href="films.html">Films</a></li>
             </ul>
-            <button id="mode-sombre">Mode sombre</button>
+            <button id="theme-toggle" class="theme-btn">
+                <span class="sun">☀️</span>
+                <span class="moon">🌙</span>
+            </button>
         </nav>
         <div class="presentation">
             <div class="texte">

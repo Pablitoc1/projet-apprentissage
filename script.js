@@ -1,8 +1,17 @@
-let bouton = document.getElementById("mode-sombre");
+const themeBtn = document.getElementById('theme-toggle');
+const root = document.documentElement; // même élément que le script inline dans le HTML
 
-bouton.addEventListener("click", function() {
-    document.body.classList.toggle("mode-sombre");
-});
+if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+        root.classList.toggle('dark-mode');
+
+        if (root.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    });
+}
 
 /* Galerie */
 let toutesLesCartes = document.querySelectorAll('.carte');
@@ -199,7 +208,7 @@ const API_KEY_FILMS = "425a00cc";
 
 function obtenirFilms(titre) {
     listeFilms.innerHTML = "";
-    fetch(`http://www.omdbapi.com/?apikey=${API_KEY_FILMS}&s=${titre}`)
+    fetch(`https://www.omdbapi.com/?apikey=${API_KEY_FILMS}&s=${encodeURIComponent(titre)}`)
       .then(reponse => reponse.json())
       .then(donnees => {
         if(donnees.Search) {
@@ -224,7 +233,84 @@ function obtenirFilms(titre) {
       });
 }
 
+let horloge;
+let dernierFetch = null; // pour ignorer les réponses en retard (race condition)
+const box = document.getElementById('suggestions-box');
+
+if (rechercheFilms && box) {
+    rechercheFilms.addEventListener('input', (e) => {
+        const texteSaisi = e.target.value.trim();
+
+        clearTimeout(horloge);
+
+        if (texteSaisi.length <= 2) {
+            masquerSuggestions();
+            return;
+        }
+
+        horloge = setTimeout(() => {
+            const termeRecherche = texteSaisi;
+            dernierFetch = termeRecherche;
+
+            fetch(`https://www.omdbapi.com/?apikey=${API_KEY_FILMS}&s=${encodeURIComponent(termeRecherche)}`)
+                .then(reponse => reponse.json())
+                .then(donnees => {
+                    if (dernierFetch !== termeRecherche) return;
+                    if (donnees.Search) {
+                        afficherSuggestions(donnees.Search);
+                    } else {
+                        masquerSuggestions();
+                    }
+                })
+                .catch(() => {
+                    if (dernierFetch === termeRecherche) masquerSuggestions();
+                });
+        }, 400);
+    });
+
+    document.addEventListener('click', (e) => {
+        const wrapper = box.parentElement;
+        if (wrapper && !wrapper.contains(e.target)) {
+            masquerSuggestions();
+        }
+    });
+}
+
+function masquerSuggestions() {
+    if (box) {
+        box.innerHTML = "";
+        box.style.display = "none";
+    }
+}
+
+function afficherSuggestions(films) {
+    if (!box) return;
+    box.innerHTML = "";
+    if (!films || films.length === 0) {
+        box.style.display = "none";
+        return;
+    }
+    films.forEach(film => {
+        const item = document.createElement('div');
+        item.classList.add('suggestion-item');
+        item.textContent = film.Title;
+
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            rechercheFilms.value = film.Title;
+            masquerSuggestions();
+            lancerRechercheFilms();
+        });
+
+        box.appendChild(item);
+    });
+    box.style.display = "block";
+}
+
+
+
 function lancerRechercheFilms() {
+    masquerSuggestions();
     const titresaisi = rechercheFilms.value;
     listeFilms.style.display = 'flex';
     obtenirFilms(titresaisi);
@@ -241,7 +327,7 @@ if(rechercheFilms) {
 }
 
 function obtenirDetailsFilm(imdbID) {
-    fetch(`http://www.omdbapi.com/?apikey=${API_KEY_FILMS}&i=${imdbID}&plot=full`)
+    fetch(`https://www.omdbapi.com/?apikey=${API_KEY_FILMS}&i=${imdbID}&plot=full`)
       .then(reponse => reponse.json())
       .then(filmDetails => {
         const corps = document.getElementById("details-corps");

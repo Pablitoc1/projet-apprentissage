@@ -1,13 +1,39 @@
-body {
-    /* --- STRUCTURE (Ne change jamais) --- */
-    margin: 0;                /* On supprime la marge par défaut pour éviter le décalage */
-    font-family: sans-serif;  /* La police est fixée ici une fois pour toutes */
-    min-height: 100vh;        /* La hauteur est toujours au moins celle de l'écran */
-    transition: background 0.3s ease, color 0.3s ease; /* Pour que le changement soit fluide */
+/* Couleurs par défaut (Mode Jour) */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --btn-color: #f1c40f; /* Jaune soleil */
+}
 
-    /* --- COULEURS PAR DÉFAUT (Mode Clair) --- */
-    background-color: #f4f4f9;
-    color: #333;
+/* Couleurs quand la classe .dark-mode est active */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --btn-color: #bdc3c7; /* Gris lune */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: 0.3s;
+    font-family: sans-serif;
+}
+
+/* Logique du bouton lune/soleil */
+.theme-btn .moon { display: none; } /* On cache la lune par défaut */
+
+.dark-mode .theme-btn .sun { display: none; } /* Cache le soleil en mode sombre */
+.dark-mode .theme-btn .moon { display: inline-block; } /* Affiche la lune */
+
+.theme-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    filter: drop-shadow(0 0 5px var(--btn-color)); 
+    position: absolute;
+    right: 20px;
+    top: 20px;
 }
 
 /* Mobile */
@@ -24,20 +50,6 @@ body {
         width: 80%;              
         max-width: 300px;
     }
-}
-
-/* Mode sombre */
-.mode-sombre {
-    background: linear-gradient(135deg, #1a1a1a 0%, #0f172a 100%);
-    color: #f8fafc;
-}
-
-.mode-sombre a {
-    color: #ff7675; 
-}
-.mode-sombre #mode-sombre {
-    background-color: #fff;
-    color: #333;
 }
 
 
@@ -473,12 +485,18 @@ form button:hover {
     min-height: 300px;
     padding: 20px;
 }
-#recherche-films {
+
+.recherche-films-wrapper {
+    position: relative;
     width: 300px;
+    margin-bottom: 15px;
+}
+
+#recherche-films {
+    width: 100%;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    margin-bottom: 15px;
     box-sizing: border-box;
 }
 
@@ -562,6 +580,40 @@ form button:hover {
 
 #details-texte {
     flex: 1;              /* Dit au texte : "Prends toute la place qu'il reste" */
+}
+
+/* Suggestions */
+#suggestions-box {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--bg-color);
+    border: 1px solid var(--suggestion-border, #333);
+    border-top: none;
+    z-index: 1000;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--suggestion-border, #333);
+    color: var(--text-color);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: var(--suggestion-hover, rgba(0, 0, 0, 0.08));
+}
+
+.dark-mode .suggestion-item:hover {
+    background-color: var(--suggestion-hover, #333);
 }
 
 .modale-contenu img {
